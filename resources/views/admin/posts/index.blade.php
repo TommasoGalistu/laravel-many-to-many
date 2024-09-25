@@ -11,6 +11,7 @@
         <th scope="col">Id</th>
         <th scope="col">Name</th>
         <th scope="col">Categoria</th>
+        <th scope="col">Tipo</th>
         <th scope="col">Caricamento</th>
         <th scope="col">Option</th>
       </tr>
@@ -19,16 +20,27 @@
         @foreach ($posts as $post)
 
         <tr>
-          <th scope="row">{{ $post->id }}</th>
+          <td scope="row">{{ $post->id }}</td>
           <td>{{ $post->title }}</td>
           @if($post->category)
           <td class="badge text-bg-success d-inline">{{ $post->category->name }}</td>
           @else
           <td class="badge text-bg-success d-inline">-</td>
           @endif
+          <td class=" text-success d-flex flex-wrap gap-2">
+
+            @forelse ($post->types as $tag)
+                <span class="">
+                    {{ $tag->name }}
+                </span>
+
+            @empty
+                <span>-</span>
+            @endforelse
+          </td>
           <td>{{ $post->added_at }}</td>
           <td
-            class="d-flex gap-1">
+            class="d-flex ">
             <a href="{{route('admin.posts.show', $post)}}" class="btn btn-success"><i class="fa-solid fa-eye"></i></a>
             <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></a>
             <form action="{{route('admin.posts.destroy', $post)}}" method="POST">

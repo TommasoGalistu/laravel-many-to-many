@@ -8,7 +8,23 @@
 
 <h3>Titolo: {{ $post->title }}</h3>
 <p>Descrizione: {{ $post->description }}</p>
-<p>Categoria: {{ $post->category?->name ? $post->category->name : 'Nessuna' }}</p>
+<p>Categoria:
+@if ($post->category?->name)
+<span class="badge bg-success">{{ $post->category->name }}</p>
+
+@else
+<span class="badge bg-success">Nessuna</span>
+@endif
+<p>Categoria:
+    @forelse ($post->types as $type)
+
+    <span class="badge bg-success">{{ $type->name }}</span>
+
+    @empty
+        <span>Nessun tipo</span>
+    @endforelse
+</p>
+
 <div class="cont d-flex gap-3 ">
     <div class="d-flex flex-column">
         <span>All Project</span>

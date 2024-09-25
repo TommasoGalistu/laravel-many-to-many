@@ -21,7 +21,7 @@
         <small class="invalid-feedback">{{$message}}</small>
       @enderror
     </div>
-    <select class="form-select" aria-label="Default select example">
+    <select class="form-select" aria-label="Default select example" name="category_id">
         <option value="" selected>Open this select menu</option>
         @foreach ($categories as $category)
         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -29,6 +29,12 @@
         @endforeach
 
       </select>
+      <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        @foreach ($types as $type)
+            <input type="checkbox" class="btn-check" id="type-{{ $type->id }}"  autocomplete="off" value="{{ $type->id }}" name="type[]">
+            <label class="btn btn-outline-primary" for="type-{{ $type->id }}">{{ $type->name }}</label>
+        @endforeach
+      </div>
 
     <div class="mb-3 d-flex flex-column">
       <label for="description" class="form-label">Descrizione</label>

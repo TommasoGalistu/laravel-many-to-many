@@ -6,6 +6,7 @@ use App\Function\Helper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Type;
 use App\Models\Category;
 use App\Http\Requests\PostRequest;
 
@@ -17,7 +18,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id', 'desc')->paginate(8);
-        return view('admin.posts.index', compact('posts'));
+        $types = Type::all();
+        return view('admin.posts.index', compact('posts', 'types'));
     }
 
     /**
@@ -25,8 +27,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        $posts = Category::all();
-        return view('admin.posts.create', compact('posts'));
+        $categories = Category::all();
+        $types = Type::all();
+        return view('admin.posts.create', compact('categories', 'types'));
     }
 
     /**
@@ -34,12 +37,17 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-       $data = $request->all();
+        $data = $request->all();
+
         $post = new Post();
        $post->slug = Helper::generateSlug($data['title'], Post::class);
        $post->added_at = date('d/m/Y');
        $post->fill($data);
        $post->save();
+
+       if(array_key_exists('type', $data)){
+            $post->types()->attach($data['type']);
+       }
 
        return redirect()->route('admin.posts.show', compact('post'));
 
@@ -52,7 +60,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.posts.show', compact('post'));
+        $types = Type::all();
+        return view('admin.posts.show', compact('post', 'types'));
     }
 
     /**
