@@ -25,12 +25,13 @@
     </div>
     <label for="category" class="form-laberl">Categoria:</label>
     <select class="form-select" aria-label="Default select example" name="category_id" id="category_id">
+
         <option value="">Open this select menu</option>
+
         @foreach ($categories as $category)
-            <option value="{{ $category->id }}"
-                @if (old('category_id') === $category->id)
-                    selected
-                @endif>
+            <option
+                value="{{ $category->id }}"
+                @if(old('category_id', $post->category->id) === $category->id) selected @endif>
                 {{ $category->name }}
             </option>
         @endforeach
