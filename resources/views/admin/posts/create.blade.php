@@ -23,8 +23,8 @@
     </div>
     <select class="form-select" aria-label="Default select example">
         <option value="" selected>Open this select menu</option>
-        @foreach ($posts as $post)
-        <option value="{{ $post->id }}">{{ $post->name }}</option>
+        @foreach ($categories as $category)
+        <option value="{{ $category->id }}">{{ $category->name }}</option>
 
         @endforeach
 

@@ -21,7 +21,11 @@
         <tr>
           <th scope="row">{{ $post->id }}</th>
           <td>{{ $post->title }}</td>
+          @if($post->category)
           <td class="badge text-bg-success d-inline">{{ $post->category->name }}</td>
+          @else
+          <td class="badge text-bg-success d-inline">-</td>
+          @endif
           <td>{{ $post->added_at }}</td>
           <td
             class="d-flex gap-1">

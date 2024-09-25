@@ -60,16 +60,18 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(PostRequest $request, string $id)
+    public function update(PostRequest $request, Post $post)
     {
+
         $data = $request->all();
-        $post = Post::find($id);
+        $post = Post::find($post->id);
 
         if($data['title'] !== $post->title){
             $data['slug'] = Helper::generateSlug($data['title'], Post::class);

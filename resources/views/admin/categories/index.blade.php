@@ -5,10 +5,15 @@
 @section('content')
 
 @if (session('delete'))
-<p class="text-danger">{{ session('delete') }}</p>
+<p class="text-success">{{ session('delete') }}</p>
 
 @endif
 
+
+@if ($errors->any())
+<p class="text-danger">{{ $errors->first() }}</p>
+
+@endif
 <form action="{{ route('admin.categories.store') }}" method="POST">
     @csrf
     <input type="text" name="name" placeholder="scrivi nome">

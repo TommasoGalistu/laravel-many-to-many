@@ -13,7 +13,7 @@
     </div>
 @endif
 
-<form action="{{ route('admin.posts.update', $post->id) }}" method="POST">
+<form action="{{ route('admin.posts.update', $post) }}" method="POST">
     @csrf
     @method('PUT')
     <div class="mb-3">
@@ -23,6 +23,17 @@
         <small class="invalid-feedback">{{$message}}</small>
       @enderror
     </div>
+    <select class="form-select" aria-label="Default select example" name="category_id">
+        <option value="">Open this select menu</option>
+        @foreach ($categories as $category)
+            <option value="{{ $category->id }}"
+                @if (old('category_id') == $post->category->id)
+                    selected
+                @endif>
+                {{ $category->name }}
+            </option>
+        @endforeach
+    </select>
     <div class="mb-3 d-flex flex-column">
       <label for="description" class="form-label">Descrizione</label>
       <textarea name="description" id="description" cols="30" rows="10">{{old('description', $post->description)}}</textarea>

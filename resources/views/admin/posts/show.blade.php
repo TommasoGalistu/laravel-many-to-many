@@ -6,8 +6,9 @@
 @endif
 
 
-<h3>{{ $post->title }}</h3>
-<p>{{ $post->description }}</p>
+<h3>Titolo: {{ $post->title }}</h3>
+<p>Descrizione: {{ $post->description }}</p>
+<p>Categoria: {{ $post->category?->name ? $post->category->name : 'Nessuna' }}</p>
 <div class="cont d-flex gap-3 ">
     <div class="d-flex flex-column">
         <span>All Project</span>
