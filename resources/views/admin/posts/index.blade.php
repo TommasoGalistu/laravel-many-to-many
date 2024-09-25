@@ -30,7 +30,7 @@
           <td class=" text-success d-flex flex-wrap gap-2">
 
             @forelse ($post->types as $tag)
-                <span class="">
+                <span class="badge bg-success">
                     {{ $tag->name }}
                 </span>
 

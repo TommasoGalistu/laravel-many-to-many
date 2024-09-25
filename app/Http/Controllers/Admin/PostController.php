@@ -70,8 +70,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
+        $types = Type::all();
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'types'));
     }
 
     /**
@@ -86,8 +87,10 @@ class PostController extends Controller
         if($data['title'] !== $post->title){
             $data['slug'] = Helper::generateSlug($data['title'], Post::class);
         }
-
         $post->update($data);
+        if(array_key_exists('type', $data)){
+            $post->types()->sync($data['type']);
+       }
         return redirect()->route('admin.posts.show', compact('post'))->with('status', 'Il post è stato modificato correttamente');
     }
 

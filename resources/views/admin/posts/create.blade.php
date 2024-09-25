@@ -31,8 +31,13 @@
       </select>
       <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
         @foreach ($types as $type)
-            <input type="checkbox" class="btn-check" id="type-{{ $type->id }}"  autocomplete="off" value="{{ $type->id }}" name="type[]">
+            <input type="checkbox" class="btn-check" id="type-{{ $type->id }}"  autocomplete="off" value="{{ $type->id }}"
+             @if (in_array($type->id, old('type', [])))
+                checked
+            @endif name="type[]">
             <label class="btn btn-outline-primary" for="type-{{ $type->id }}">{{ $type->name }}</label>
+
+
         @endforeach
       </div>
 

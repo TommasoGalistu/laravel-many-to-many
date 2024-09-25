@@ -31,11 +31,27 @@
         @foreach ($categories as $category)
             <option
                 value="{{ $category->id }}"
-                @if(old('category_id', $post->category->id) === $category->id) selected @endif>
+                @if(
+                old('category_id', $post->category?->id) === $category->id)
+                selected @endif>
                 {{ $category->name }}
             </option>
+
         @endforeach
     </select>
+    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        @foreach ($types as $type)
+            <input type="checkbox" class="btn-check" id="type-{{ $type->id }}"  autocomplete="off"
+            value="{{ $type->id }}"
+            name="type[]"
+            @if ($errors->any() && in_array($type->id, old('type', []))
+                || !$errors->any() && $post->types->contains($type))
+                checked
+                @endif>
+                <label class="btn btn-outline-primary" for="type-{{ $type->id }}">{{ $type->name }}</label>
+                @endforeach
+
+      </div>
     <div class="mb-3 d-flex flex-column">
       <label for="description" class="form-label">Descrizione</label>
       <textarea name="description" id="description" cols="30" rows="10">{{old('description', $post->description)}}</textarea>
