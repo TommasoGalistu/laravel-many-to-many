@@ -24,7 +24,9 @@
         <span>Nessun tipo</span>
     @endforelse
 </p>
-
+<div class="contImg">
+    <img src="{{ asset('storage/' . $post->path_img) }}" alt="{{ $post->original_name_img }}">
+</div>
 <div class="cont d-flex gap-3 ">
     <div class="d-flex flex-column">
         <span>All Project</span>

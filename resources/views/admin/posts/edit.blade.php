@@ -13,7 +13,7 @@
     </div>
 @endif
 
-<form action="{{ route('admin.posts.update', $post) }}" method="POST">
+<form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="mb-3">
@@ -24,6 +24,7 @@
       @enderror
     </div>
     <label for="category" class="form-laberl">Categoria:</label>
+
     <select class="form-select" aria-label="Default select example" name="category_id" id="category_id">
 
         <option value="">Open this select menu</option>
@@ -31,9 +32,8 @@
         @foreach ($categories as $category)
             <option
                 value="{{ $category->id }}"
-                @if(old('category_id', $post->category?->id) == $category->id)
-                    selected
-                @endif>
+                @selected($post->category?->id === $category->id)
+                >
                 {{ $category->name }}
             </option>
 
@@ -51,6 +51,13 @@
                 <label class="btn btn-outline-primary" for="type-{{ $type->id }}">{{ $type->name }}</label>
                 @endforeach
 
+      </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Default file input example</label>
+        <input class="form-control" type="file" id="formFile" name="path_img">
+      </div>
+      <div class="contImg">
+        {{-- <img src="{{ asset('storage/' . $post->path_img) }}" alt="{{ $post->original_name_img }}"> --}}
       </div>
     <div class="mb-3 d-flex flex-column">
       <label for="description" class="form-label">Descrizione</label>
