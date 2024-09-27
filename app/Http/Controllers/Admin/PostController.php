@@ -43,11 +43,11 @@ class PostController extends Controller
         $post = new Post();
        $post->slug = Helper::generateSlug($data['title'], Post::class);
        $post->added_at = date('d/m/Y');
-       dd($data);
+
        if(array_key_exists('path_img', $data)){
          $path_img = Storage::put('uploads', $data['path_img']);
          $original_name_img = $request->file('path_img')->getClientOriginalName();
-         $data['path_img'] = $original_name_img;
+         $data['path_img'] = $path_img;
          $data['original_name_img'] = $original_name_img;
        }
        $post->fill($data);
